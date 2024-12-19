@@ -2,8 +2,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Navigation from "./components/shared/Navigation";
 import "./index.css";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
 import Authenticate from "./pages/Authenticate";
 import Rooms from "./pages/Rooms";
 import React from "react";
@@ -54,12 +52,12 @@ function App() {
           }
         />
       </Routes>
-      <Routes>
+      {/* <Routes>
         <Route path="/register" element={<Register />} />
       </Routes>
       <Routes>
         <Route path="/login" element={<Login />} />
-      </Routes>
+      </Routes> */}
     </BrowserRouter>
   );
 }

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-const Phone = ({ width = 30, height = 30, ...props }) => {
+const PhoneIcon = ({ width = 30, height = 30, ...props }) => {
   return (
     <svg
       width={width}
@@ -25,4 +25,4 @@ const Phone = ({ width = 30, height = 30, ...props }) => {
   );
 };
 
-export default Phone;
+export default PhoneIcon;

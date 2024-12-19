@@ -1,5 +1,4 @@
 import { Link, useNavigate } from "react-router-dom";
-import ArrowForward from "../components/shared/icons/ArrowForward";
 import Logo from "../components/shared/icons/Logo";
 import Card from "../components/shared/Card";
 import Button from "../components/shared/Button";
@@ -15,12 +14,12 @@ const Home = () => {
         text="PodLounge is a social media platform for podcasters and listeners. It is a place where you can connect with other podcasters and listen to their podcasts."
         icon={<Logo />}
       >
-        <p className="text-[22px] leading-7 text-[#c4c5c5]">
+        <p className="text-[22px] leading-7 text-[#c4c5c5] text-center">
           PodLounge is a social media platform for podcasters and listeners. It
           is a place where you can connect with other podcasters and listen to
           their podcasts.
         </p>
-        <div><Button onClick={() => navigate("/register")} text="Get your username" /></div>
+        <div><Button onClick={() => navigate("/authenticate")} text="Let's Get Started" /></div>
         <div className="mt-[-20px] gap-1 flex mx-auto">
           <span className="text-[#0077ff]">Have an invite code?</span>
           <Link to="/login" className="text-[#0077ff] font-bold no-underline">Sign in</Link>

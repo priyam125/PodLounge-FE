@@ -1,21 +1,21 @@
 import { useState } from "react";
-import Button from "../Button";
 import Card from "../Card";
-import LockIcon from "../icons/LockIcon";
+import EmailEmojiIcon from "../icons/EmailEmojiIcon";
 import TextInput from "../TextInput";
+import Button from "../Button";
 
-const StepOtp = ({ onNext }) => {
-  const [otp, setOtp] = useState("");
+const StepEmail = ({ onNext }) => {
+  const [email, setEmail] = useState("");
   return (
     <Card
-      title="Enter the code we just texted you"
-      icon={<LockIcon />}
       className="w-full max-w-full"
+      title="Enter your email"
+      icon={<EmailEmojiIcon />}
     >
       <TextInput
-        placeholder="Enter your phone number"
-        value={otp}
-        onChange={(e) => setOtp(e.target.value)}
+        //   placeholder="Enter your phone number"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
       <div className="space-y-2">
         <div className="">
@@ -30,4 +30,4 @@ const StepOtp = ({ onNext }) => {
   );
 };
 
-export default StepOtp;
+export default StepEmail;

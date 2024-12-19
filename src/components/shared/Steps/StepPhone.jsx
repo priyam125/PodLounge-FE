@@ -1,21 +1,22 @@
 import { useState } from "react";
 import Button from "../Button";
 import Card from "../Card";
-import LockIcon from "../icons/LockIcon";
+import PhoneIcon from "../icons/PhoneIcon";
 import TextInput from "../TextInput";
 
-const StepOtp = ({ onNext }) => {
-  const [otp, setOtp] = useState("");
+const StepPhone = ({ onNext }) => {
+  const [phone, setPhone] = useState("");
+
   return (
     <Card
-      title="Enter the code we just texted you"
-      icon={<LockIcon />}
+      title="Enter your phone number"
+      icon={<PhoneIcon />}
       className="w-full max-w-full"
     >
       <TextInput
         placeholder="Enter your phone number"
-        value={otp}
-        onChange={(e) => setOtp(e.target.value)}
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)}
       />
       <div className="space-y-2">
         <div className="">
@@ -30,4 +31,4 @@ const StepOtp = ({ onNext }) => {
   );
 };
 
-export default StepOtp;
+export default StepPhone;
