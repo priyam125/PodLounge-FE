@@ -6,6 +6,7 @@ import Authenticate from "./pages/Authenticate";
 import Rooms from "./pages/Rooms";
 import React from "react";
 import Activate from "./pages/Activate";
+import { useAuth } from "./context/AuthContext";
 
 function App() {
   return (
@@ -68,10 +69,16 @@ export default App;
 
 //GuestRoute = Home/Welcome page, Authenticate Step 1 and 2(Phone/Email && OTP)
 const GuestRoute = ({ children, ...rest }) => {
-  const isUserLoggedIn = false;
 
-  console.log("isUserLoggedIn", isUserLoggedIn);
-  return isUserLoggedIn ? (
+  const {user} = useAuth();
+  // console.log("privateAuth", user);
+
+  const isAuthenticated = !!user;
+  // console.log("isAuthenticated", isAuthenticated);
+  // const isUserLoggedIn = false;
+
+  console.log("isAuthenticated", isAuthenticated);
+  return isAuthenticated ? (
     <Navigate to="/rooms" />
   ) : (
     React.cloneElement(children, { ...rest })
@@ -84,10 +91,16 @@ const SemiProtectedRoute = ({ children, ...rest }) => {
   // const isUserLoggedIn = {
   //   isActivated: true,
   // };
-  const isUserLoggedIn = false;
-  return !isUserLoggedIn ? (
+
+  const {user} = useAuth();
+  // console.log("privateAuth", user);
+
+  const isAuthenticated = !!user;
+  // console.log("isAuthenticated", isAuthenticated);
+  // const isUserLoggedIn = false;
+  return !isAuthenticated ? (
     <Navigate to="/" />
-  ) : isUserLoggedIn && !isUserLoggedIn?.isActivated ? (
+  ) : isAuthenticated && !user?.activated ? (
     React.cloneElement(children, { ...rest })
   ) : (
     <Navigate to="/rooms" />
@@ -97,10 +110,17 @@ const SemiProtectedRoute = ({ children, ...rest }) => {
 
 //ProtectedRoute = Rooms, Single Room, Profile
 const ProtectedRoute = ({ children, ...rest }) => {
-  const isUserLoggedIn = false;
-  return !isUserLoggedIn ? (
+  // const isUserLoggedIn = false;
+
+  const {user} = useAuth();
+  // console.log("privateAuth", user);
+
+  const isAuthenticated = !!user;
+  // console.log("isAuthenticated", isAuthenticated);
+
+  return !isAuthenticated ? (
     <Navigate to="/" />
-  ) : isUserLoggedIn && !isUserLoggedIn?.isActivated ? (
+  ) : isAuthenticated && !user?.activated ? (
     <Navigate to="/activate" />
   ) : (
     React.cloneElement(children, { ...rest })

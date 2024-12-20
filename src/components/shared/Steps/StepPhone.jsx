@@ -3,9 +3,22 @@ import Button from "../Button";
 import Card from "../Card";
 import PhoneIcon from "../icons/PhoneIcon";
 import TextInput from "../TextInput";
+import { useAuth } from "../../../context/AuthContext";
 
 const StepPhone = ({ onNext }) => {
   const [phone, setPhone] = useState("");
+  const { sendOtp } = useAuth();
+
+  const handleSubmit = async () => {
+    try {
+      const response = await sendOtp(phone); // Send OTP via context function
+
+      console.log("response", response);
+      onNext(); // Navigate to the next step
+    } catch (error) {
+      console.error("Error sending OTP:", error);
+    }
+  };
 
   return (
     <Card
@@ -19,8 +32,8 @@ const StepPhone = ({ onNext }) => {
         onChange={(e) => setPhone(e.target.value)}
       />
       <div className="space-y-2">
-        <div className="">
-          <Button text="Next" onClick={onNext} />
+        <div>
+          <Button text="Next" onClick={handleSubmit} />
         </div>
         <p className="text-[#c4c5c5] w-[70%] mx-auto">
           By entering your number, you’re agreeing to our Terms of Service and
