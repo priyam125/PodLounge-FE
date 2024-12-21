@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
   const [otpData, setOtpData] = useState(null);
 
   // Function to send OTP
-  const sendOtp = async (phone) => {
+  const sendOtp = async (phone) => { 
     setIsLoading(true);
     try {
       const response = await sendOtpApi({ phone }); // Call API

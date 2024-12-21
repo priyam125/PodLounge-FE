@@ -15,7 +15,6 @@ const StepOtp = ({ onNext }) => {
       const { hash, phone } = otpData;
 
       await verifyOtp({ otp, hash, phone }); // Verify OTP via context function
-      // onNext(); // Navigate to the next step
     } catch (error) {
       console.error("Error verifying OTP:", error);
     }

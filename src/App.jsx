@@ -53,12 +53,6 @@ function App() {
           }
         />
       </Routes>
-      {/* <Routes>
-        <Route path="/register" element={<Register />} />
-      </Routes>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-      </Routes> */}
     </BrowserRouter>
   );
 }
@@ -71,11 +65,8 @@ export default App;
 const GuestRoute = ({ children, ...rest }) => {
 
   const {user} = useAuth();
-  // console.log("privateAuth", user);
 
   const isAuthenticated = !!user;
-  // console.log("isAuthenticated", isAuthenticated);
-  // const isUserLoggedIn = false;
 
   console.log("isAuthenticated", isAuthenticated);
   return isAuthenticated ? (
@@ -83,21 +74,14 @@ const GuestRoute = ({ children, ...rest }) => {
   ) : (
     React.cloneElement(children, { ...rest })
   );
-  // return isUserLoggedIn ? <Navigate to="/" /> : children;
 };
 
 //SemiProtectedRoute = Activate Step 1 and 2(Full Name && Avatar)
 const SemiProtectedRoute = ({ children, ...rest }) => {
-  // const isUserLoggedIn = {
-  //   isActivated: true,
-  // };
-
   const {user} = useAuth();
-  // console.log("privateAuth", user);
 
   const isAuthenticated = !!user;
-  // console.log("isAuthenticated", isAuthenticated);
-  // const isUserLoggedIn = false;
+
   return !isAuthenticated ? (
     <Navigate to="/" />
   ) : isAuthenticated && !user?.activated ? (
@@ -110,13 +94,10 @@ const SemiProtectedRoute = ({ children, ...rest }) => {
 
 //ProtectedRoute = Rooms, Single Room, Profile
 const ProtectedRoute = ({ children, ...rest }) => {
-  // const isUserLoggedIn = false;
 
   const {user} = useAuth();
-  // console.log("privateAuth", user);
 
   const isAuthenticated = !!user;
-  // console.log("isAuthenticated", isAuthenticated);
 
   return !isAuthenticated ? (
     <Navigate to="/" />
