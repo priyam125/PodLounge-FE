@@ -7,7 +7,7 @@ import { SERVER_URL } from "../utils/index";
 console.log("SERVER_URL", SERVER_URL);
 export const apiClient = axios.create({
   baseURL: SERVER_URL,
-  //   withCredentials: true,
+    withCredentials: true,
   //   timeout: 6000,
   headers: {
     "Content-Type": "application/json",
