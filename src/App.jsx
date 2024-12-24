@@ -21,8 +21,6 @@ function App() {
             </GuestRoute>
           }
         />
-      </Routes>
-      <Routes>
         <Route
           path="/authenticate"
           element={
@@ -31,8 +29,6 @@ function App() {
             </GuestRoute>
           }
         />
-      </Routes>
-      <Routes>
         <Route
           path="/activate"
           element={
@@ -41,14 +37,11 @@ function App() {
             </SemiProtectedRoute>
           }
         />
-      </Routes>
-      <Routes>
         <Route
           path="/rooms"
           element={
             <ProtectedRoute>
-              {" "}
-              <Rooms />{" "}
+              <Rooms />
             </ProtectedRoute>
           }
         />

@@ -1,49 +1,51 @@
 import { useEffect, useState } from "react";
 import StepOtp from "../components/shared/Steps/StepOtp";
 import StepPhone from "../components/shared/Steps/StepPhone";
+import StepEmail from "../components/shared/Steps/StepEmail";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PhoneAndroidIcon from "../components/shared/icons/PhoneAndroidIcon";
 import EmailIcon from "../components/shared/icons/EmailIcon";
-import StepEmail from "../components/shared/Steps/StepEmail";
 import { useAuth } from "../context/AuthContext";
 
-const steps = {
-  1: StepPhone || StepEmail,
-  2: StepOtp,
-};
+const steps = [
+  { id: 1, component: StepPhone, tab: "phone" },
+  { id: 2, component: StepOtp, tab: "otp" },
+];
 
 const Authenticate = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [activeTab, setActiveTab] = useState("phone");
-
   const { otpData, user } = useAuth();
 
   useEffect(() => {
     console.log("otpData", otpData);
     console.log("user", user);
+  }, [otpData, user]);
+
+  const handleNextStep = () => setCurrentStep((prev) => prev + 1);
+
+  // Determine the current step and component
+  const currentStepDetails = steps.find((step) => step.id === currentStep);
+
+  useEffect(() => {
+    console.log("activeTab", activeTab);
+    console.log("currentStep", currentStep);
+
+    console.log("currentStepDetails", currentStepDetails);
   });
-
-  
-
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-
-  const Step =
-    activeTab === "phone" && currentStep === 1
-      ? StepPhone
-      : activeTab === "email" && currentStep === 1
+  const StepComponent =
+    currentStep === 1 && activeTab === "email"
       ? StepEmail
-      : steps[currentStep];
+      : currentStepDetails?.component;
 
   return (
     <div className="flex items-center justify-center mt-24">
-      {/* <Step onNext={() => setCurrentStep(currentStep + 1)} /> */}
-      <Tabs
-        defaultValue={activeTab}
-        onValueChange={setActiveTab}
-        className="w-2/5"
-      >
-        {currentStep === 1 && (
+      {currentStep === 1 && (
+        <Tabs
+          defaultValue={activeTab}
+          onValueChange={setActiveTab}
+          className="xl:w-2/5 w-3/5"
+        >
           <TabsList className="bg-transparent flex items-end justify-end space-x-2">
             <TabsTrigger
               value="phone"
@@ -58,16 +60,16 @@ const Authenticate = () => {
               <EmailIcon />
             </TabsTrigger>
           </TabsList>
-        )}
-        <TabsContent value="phone" className="w-full">
-          {/* <StepPhone /> */}
-          <Step onNext={() => setCurrentStep(currentStep + 1)} />
-        </TabsContent>
-        <TabsContent value="email" className="w-full">
-          {/* <StepEmail /> */}
-          <Step onNext={() => setCurrentStep(currentStep + 1)} />
-        </TabsContent>
-      </Tabs>
+          <TabsContent value={activeTab} className="w-full">
+            {StepComponent && <StepComponent onNext={handleNextStep} />}
+          </TabsContent>
+        </Tabs>
+      )}
+      {currentStep > 1 && StepComponent && (
+        <div className="w-2/5">
+          <StepComponent onNext={handleNextStep} />
+        </div>
+      )}
     </div>
   );
 };

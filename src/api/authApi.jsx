@@ -8,3 +8,7 @@ export const verifyOtp = (data) => {
   return apiClient.post("/auth/verify-otp", data);
 };
 
+export const activate = (data) => {
+  return apiClient.post("/activate", data);
+};
+
