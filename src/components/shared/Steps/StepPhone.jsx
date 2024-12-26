@@ -10,6 +10,11 @@ const StepPhone = ({ onNext }) => {
   const { sendOtp } = useAuth();
 
   const handleSubmit = async () => {
+    if (!phone) {
+      // alert("Please enter a phone number");
+      return;
+    }
+
     try {
       const response = await sendOtp(phone); // Send OTP via context function
 

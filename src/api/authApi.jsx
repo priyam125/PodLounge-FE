@@ -12,3 +12,7 @@ export const activate = (data) => {
   return apiClient.post("/activate", data);
 };
 
+export const logout = () => {
+  return apiClient.post("/auth/logout");
+};
+

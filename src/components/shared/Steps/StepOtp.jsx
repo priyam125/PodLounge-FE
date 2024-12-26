@@ -10,6 +10,7 @@ const StepOtp = ({ onNext }) => {
   const { otpData, verifyOtp } = useAuth();
 
   const handleSubmit = async () => {
+    if (!otp) return;
     try {
       if (!otpData) throw new Error("OTP data is missing");
       const { hash, phone } = otpData;

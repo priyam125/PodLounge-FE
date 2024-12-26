@@ -9,6 +9,8 @@ const StepAvatar = ({ onNext }) => {
   const [image, setImage] = useState("/images/cat.png");
 
   const handleSubmit = () => {
+
+    if (!image || !name) return;
     submitActivation();
   };
 
