@@ -14,3 +14,27 @@ export const apiClient = axios.create({
     Accept: "application/json",
   },
 });
+
+
+//Interceptor
+apiClient.interceptors.response.use((config) => {
+  return config
+}, async (error) => {
+  const originalRequest = error.config;
+  if (error.response.status === 401 && originalRequest && !originalRequest._isRetry) {
+    originalRequest.isRetry = true
+
+    try {
+      const response = await axios.get(`${SERVER_URL}/auth/refresh-token`, {
+        withCredentials: true
+      })
+
+      console.log(response)
+
+      return apiClient.request(originalRequest)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+  throw error
+})
