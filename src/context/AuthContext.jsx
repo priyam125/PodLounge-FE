@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import Loader from "../components/shared/Loader";
 import { sendOtp as sendOtpApi, verifyOtp as verifyOtpApi } from "../api/authApi";
+import axios from "axios";
+import { SERVER_URL } from "../utils";
 
 // Create a context to manage authentication-related data and functions
 const AuthContext = createContext(null);
@@ -15,6 +17,36 @@ const AuthProvider = ({ children }) => {
   const [accessToken, setAccessToken] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [otpData, setOtpData] = useState(null);
+  const [isInitializing, setIsInitializing] = useState(false)
+
+  const initializeUserRef = useRef(false); // Tracks if initializeUser has run
+
+  const initializeUser = async () => {
+    // setIsLoading(true)
+    setIsInitializing(true)
+    try {
+      const response = await axios.get(`${SERVER_URL}/auth/refresh-token`, {
+        withCredentials: true,
+      });
+      if (response.data && response.data.user) {
+        setUser(response.data.user);
+        // setAccessToken(response.data.accessToken);
+        console.log("User initialized:", response.data.user);
+      }
+    } catch (error) {
+      console.error("Failed to initialize user:", error);
+    } finally {
+      setIsInitializing(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!initializeUserRef.current) {
+      initializeUserRef.current = true; // Mark as executed
+      initializeUser();
+    }
+  }, []);
+
 
   // Function to send OTP
   const sendOtp = async (phone) => { 
@@ -59,7 +91,7 @@ const AuthProvider = ({ children }) => {
       }}
     >
       {isLoading && <Loader />}
-      {children}
+      {isInitializing ? <Loader /> : children}
     </AuthContext.Provider>
   );
 };
