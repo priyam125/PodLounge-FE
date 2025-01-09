@@ -7,6 +7,7 @@ import Rooms from "./pages/Rooms";
 import React from "react";
 import Activate from "./pages/Activate";
 import { useAuth } from "./context/AuthContext";
+import Room from "./pages/Room";
 
 function App() {
   return (
@@ -42,6 +43,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Rooms />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/room/:roomId"
+          element={
+            <ProtectedRoute>
+              <Room />
             </ProtectedRoute>
           }
         />

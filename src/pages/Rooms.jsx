@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddRoomModal from "../components/shared/AddRoomModal.jsx";
 import RoomIcon from "../components/shared/icons/RoomIcon.jsx";
 import SearchIcon from "../components/shared/icons/SearchIcon.jsx";
 import RoomCard from "../components/shared/RoomCard.jsx";
 import { containerStyles } from "../utils/index.js";
+import {getAllRooms as getAllRoomsApi} from "../api/roomsApi";
 
 const dummyRooms = [
   {
@@ -86,6 +87,39 @@ const dummyRooms = [
 ];
 const Rooms = () => {
 
+  const [rooms, setRooms] = useState([]);
+
+  useEffect(() => {
+    const getAllRooms = async () => {
+      try {
+        const response = await getAllRoomsApi();
+        console.log("response", response);
+        
+
+        const updatedResponse = response.data.rooms.map((room) => {
+          return {
+            ...room,
+            speakers: room.speakers.map((speaker) => ({
+              ...speaker,
+              avatar: `http://localhost:5555${speaker.avatar}`, // Add base URL before the avatar
+            })),
+            owner: {
+              ...room.owner,
+              avatar: `http://localhost:5555${room.owner.avatar}`, // Add base URL before the owner's avatar
+            },
+          };
+        });
+
+        setRooms(updatedResponse);
+
+        console.log("updatedResponse", updatedResponse);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getAllRooms();
+  }, [])
+
   const [showModal, setShowModal] = useState(false);
   return (
     <>
@@ -111,7 +145,7 @@ const Rooms = () => {
           </div>
         </div>
         <div className="grid grid-cols-4 gap-4 mt-16">
-          {dummyRooms.map((room) => (
+          {rooms.map((room) => (
             <RoomCard key={room.id} room={room} />
           ))}
         </div>
