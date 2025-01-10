@@ -6,11 +6,11 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 import { ActivateProvider } from "./context/ActivateContext.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  // <StrictMode>
     <AuthProvider>
       <ActivateProvider>
         <App />
       </ActivateProvider>
     </AuthProvider>
-  </StrictMode>
+  // </StrictMode>
 );
