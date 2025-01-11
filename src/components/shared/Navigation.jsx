@@ -21,7 +21,7 @@ const Navigation = () => {
 
   }
   return (
-    <nav className={`${containerStyles} py-5 flex items-center justify-between`}>
+    <nav className={`${containerStyles} py-8 flex items-center justify-between`}>
         <Link className='text-white no-underline flex items-center gap-2 font-bold text-[22px]' to="/">
             <Logo className="" />
             <span>PodLounge</span>
