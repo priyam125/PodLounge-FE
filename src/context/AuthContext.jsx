@@ -69,7 +69,6 @@ const AuthProvider = ({ children }) => {
     try {
       const response = await verifyOtpApi({ otp, hash, phone }); // Call API
       setUser(response.data.user); // Store user data
-      setAccessToken(response.data.accessToken); // Store access token if provided
       console.log("OTP verified successfully", response.data);
     } catch (error) {
       console.error("Failed to verify OTP:", error);
