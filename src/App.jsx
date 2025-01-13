@@ -8,10 +8,12 @@ import React from "react";
 import Activate from "./pages/Activate";
 import { useAuth } from "./context/AuthContext";
 import Room from "./pages/Room";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <BrowserRouter>
+      <ToastContainer />
       <Navigation />
       <Routes>
         <Route

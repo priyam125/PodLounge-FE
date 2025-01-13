@@ -4,6 +4,7 @@ import Loader from "../components/shared/Loader";
 import { sendOtp as sendOtpApi, verifyOtp as verifyOtpApi } from "../api/authApi";
 import axios from "axios";
 import { SERVER_URL } from "../utils";
+import { toast } from "react-toastify";
 
 // Create a context to manage authentication-related data and functions
 const AuthContext = createContext(null);
@@ -56,6 +57,17 @@ const AuthProvider = ({ children }) => {
       console.log("responseContext", response);
       setOtpData({ hash: response.data.hash, phone: response.data.phone }); // Store hash and phone
       console.log("OTP sent successfully", response.data);
+
+      toast.success(`Your OTP is: ${response.data.otp}`, {
+        position: "top-center",
+        autoClose: 5000, // Auto close after 5 seconds
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } catch (error) {
       console.error("Failed to send OTP:", error);
     } finally {
